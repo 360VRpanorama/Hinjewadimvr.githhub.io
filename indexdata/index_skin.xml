@@ -1268,7 +1268,7 @@ if (device.desktop,
     visible="false"
     zorder="3"
     align="topright"
-    x="5" y="40"
+    x="5" y="30"
     width="200"
     onloaded="panoramacomboboxLoaded();"
     isStarted="false"
