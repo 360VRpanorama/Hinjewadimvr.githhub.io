@@ -1476,7 +1476,7 @@ if (device.desktop,
 
 
   <layer align="topleft"
-         x="10"
+         x="5"
          y="10"
          zorder="8"
          name="logo"
@@ -1484,9 +1484,7 @@ if (device.desktop,
          visible="false"
          capture="false"
 
-			tooltip="logotooltipText"
-			onhover="showTooltip('plugin');"
-			onout="hideTooltip();"
+			enabled="false"
          url="%FIRSTXML%/graphics/logo/godrej-properties-logo.png" 
          handcursor="false"
 
@@ -1515,7 +1513,7 @@ if (device.desktop,
 
 
   <layer align="topright"
-         x="10"
+         x="5"
          y="10"
          zorder="9"
          name="logo1"
