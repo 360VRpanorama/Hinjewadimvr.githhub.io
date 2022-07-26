@@ -1268,8 +1268,8 @@ if (device.desktop,
     visible="false"
     zorder="3"
     align="topright"
-    x="5" y="40"
-    width="120"
+    x="5" y="70"
+    width="140"
     onloaded="panoramacomboboxLoaded();"
     isStarted="false"
     isLoaded="false"
@@ -1477,7 +1477,7 @@ if (device.desktop,
 
   <layer align="topleft"
          x="10"
-         y="10"
+         y="35"
          zorder="8"
          name="logo"
          keep="true"
@@ -1516,7 +1516,7 @@ if (device.desktop,
 
   <layer align="topright"
          x="10"
-         y="10"
+         y="40"
          zorder="9"
          name="logo1"
          keep="true"
@@ -1527,8 +1527,8 @@ if (device.desktop,
          url="%FIRSTXML%/graphics/logo1/godrej_woodsville_logo.png" 
          handcursor="false"
 
-         height="18"
-         width="150"
+         height="17"
+         width="140"
 
          />
 
