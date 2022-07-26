@@ -1268,8 +1268,8 @@ if (device.desktop,
     visible="false"
     zorder="3"
     align="topright"
-    x="5" y="30"
-    width="200"
+    x="5" y="40"
+    width="120"
     onloaded="panoramacomboboxLoaded();"
     isStarted="false"
     isLoaded="false"
@@ -1476,7 +1476,7 @@ if (device.desktop,
 
 
   <layer align="topleft"
-         x="5"
+         x="10"
          y="10"
          zorder="8"
          name="logo"
@@ -1488,6 +1488,8 @@ if (device.desktop,
          url="%FIRSTXML%/graphics/logo/godrej-properties-logo.png" 
          handcursor="false"
 
+         height="29"
+         width="130"
 
          />
 
@@ -1513,7 +1515,7 @@ if (device.desktop,
 
 
   <layer align="topright"
-         x="5"
+         x="10"
          y="10"
          zorder="9"
          name="logo1"
@@ -1521,12 +1523,12 @@ if (device.desktop,
          visible="false"
          capture="false"
 
-			tooltip="logo1tooltipText"
-			onhover="showTooltip('plugin');"
-			onout="hideTooltip();"
+			enabled="false"
          url="%FIRSTXML%/graphics/logo1/godrej_woodsville_logo.png" 
          handcursor="false"
 
+         height="18"
+         width="150"
 
          />
 
@@ -1544,6 +1546,23 @@ if (device.desktop,
 
 
 
+
+  <!-- Hide / Show Controls -->
+  <action name="hideTourControls">set(tour_displaycontrols, false);events.dispatch(hidetourcontrols);</action>
+  <action name="showTourControls">set(tour_displaycontrols, true); events.dispatch(showtourcontrols);</action>
+
+
+  <!-- Fullscreen Management -->
+  <action name="exitFullScreen" devices="fullscreensupport">set(tour_fullscreen,false);set(fullscreen,false);</action>
+  <action name="enterFullScreen" devices="fullscreensupport">set(tour_fullscreen,true);set(fullscreen,true);</action>
+  <action name="switchFullScreen">if(tour_fullscreen,exitFullScreen();,enterFullScreen(););</action>
+
+  
+  <events name="krpanoExitFullscreenEvent"
+    onexitfullscreen="if(tour_fullscreen,exitFullScreenChangeEvent(););"
+    keep="true" />
+
+  <action name="exitFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,false);events.dispatch(onexitfullscreen);</action>
 
 <action name="viewControlZoomIn">
 	if(%1,
@@ -1584,46 +1603,6 @@ if (device.desktop,
 <action name="viewControlZoomStop">
 	set(fov_moveforce, 0);
 </action>
-
-  <action name="enableGyroscope">
-    changeGyroscopeState(true);
-  </action>
-  <action name="disableGyroscope">
-    changeGyroscopeState(false);
-  </action>
-
-
-	<!-- WebVR plugin for VR availability tests -->
-
-	<plugin name="ptpvrmode" devices="html5" keep="true"
-		url="%FIRSTXML%/graphics/webvr.js"
-		mobilevr_support="true"
-		mobilevr_fake_support="false"
-		vr_cursor=""
-		vr_cursor_enabled="false"
-		onavailable="delayedcall(1, checkVrAvailability(););"
-		onunavailable="checkVrUnavailable();"
-		/>
-	<action name="checkVrAvailability">
-		if(plugin[ptpvrmode],
-			if (plugin[ptpvrmode].isavailable,
-				set(tour_vrdevices, true);
-				events.dispatch(onvravailable);
-			,
-				set(tour_vrdevices, false);
-			);
-		,
-			checkVrUnavailable();
-		);
-	</action>
-	<action name="checkVrUnavailable">
-		set(tour_vrdevices, false);
-		events.dispatch(onvrunavailable);
-	</action>
-  <!-- Hide / Show Controls -->
-  <action name="hideTourControls">set(tour_displaycontrols, false);events.dispatch(hidetourcontrols);</action>
-  <action name="showTourControls">set(tour_displaycontrols, true); events.dispatch(showtourcontrols);</action>
-
 
 <action name="viewControlMoveUp">
 	if(%1,
@@ -1725,18 +1704,41 @@ if (device.desktop,
 	set(vlookat_moveforce, 0);
 </action>
 
-  <!-- Fullscreen Management -->
-  <action name="exitFullScreen" devices="fullscreensupport">set(tour_fullscreen,false);set(fullscreen,false);</action>
-  <action name="enterFullScreen" devices="fullscreensupport">set(tour_fullscreen,true);set(fullscreen,true);</action>
-  <action name="switchFullScreen">if(tour_fullscreen,exitFullScreen();,enterFullScreen(););</action>
+  <action name="enableGyroscope">
+    changeGyroscopeState(true);
+  </action>
+  <action name="disableGyroscope">
+    changeGyroscopeState(false);
+  </action>
 
-  
-  <events name="krpanoExitFullscreenEvent"
-    onexitfullscreen="if(tour_fullscreen,exitFullScreenChangeEvent(););"
-    keep="true" />
 
-  <action name="exitFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,false);events.dispatch(onexitfullscreen);</action>
+	<!-- WebVR plugin for VR availability tests -->
 
+	<plugin name="ptpvrmode" devices="html5" keep="true"
+		url="%FIRSTXML%/graphics/webvr.js"
+		mobilevr_support="true"
+		mobilevr_fake_support="false"
+		vr_cursor=""
+		vr_cursor_enabled="false"
+		onavailable="delayedcall(1, checkVrAvailability(););"
+		onunavailable="checkVrUnavailable();"
+		/>
+	<action name="checkVrAvailability">
+		if(plugin[ptpvrmode],
+			if (plugin[ptpvrmode].isavailable,
+				set(tour_vrdevices, true);
+				events.dispatch(onvravailable);
+			,
+				set(tour_vrdevices, false);
+			);
+		,
+			checkVrUnavailable();
+		);
+	</action>
+	<action name="checkVrUnavailable">
+		set(tour_vrdevices, false);
+		events.dispatch(onvrunavailable);
+	</action>
   <!-- Sounds Management -->
   <plugin name="soundinterface"
           preload="true"
