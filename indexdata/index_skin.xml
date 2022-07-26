@@ -1269,7 +1269,7 @@ if (device.desktop,
     zorder="3"
     align="topright"
     x="5" y="70"
-    width="140"
+    width="120"
     onloaded="panoramacomboboxLoaded();"
     isStarted="false"
     isLoaded="false"
@@ -1477,7 +1477,7 @@ if (device.desktop,
 
   <layer align="topleft"
          x="10"
-         y="35"
+         y="40"
          zorder="8"
          name="logo"
          keep="true"
@@ -1488,8 +1488,8 @@ if (device.desktop,
          url="%FIRSTXML%/graphics/logo/godrej-properties-logo.png" 
          handcursor="false"
 
-         height="29"
-         width="130"
+         height="26"
+         width="120"
 
          />
 
@@ -1524,11 +1524,11 @@ if (device.desktop,
          capture="false"
 
 			enabled="false"
-         url="%FIRSTXML%/graphics/logo1/godrej_woodsville_logo.png" 
+         url="%FIRSTXML%/graphics/logo1/godrej_woodsville_logo_copy.png" 
          handcursor="false"
 
-         height="17"
-         width="140"
+         height="26"
+         width="120"
 
          />
 
@@ -1546,63 +1546,6 @@ if (device.desktop,
 
 
 
-
-  <!-- Hide / Show Controls -->
-  <action name="hideTourControls">set(tour_displaycontrols, false);events.dispatch(hidetourcontrols);</action>
-  <action name="showTourControls">set(tour_displaycontrols, true); events.dispatch(showtourcontrols);</action>
-
-
-  <!-- Fullscreen Management -->
-  <action name="exitFullScreen" devices="fullscreensupport">set(tour_fullscreen,false);set(fullscreen,false);</action>
-  <action name="enterFullScreen" devices="fullscreensupport">set(tour_fullscreen,true);set(fullscreen,true);</action>
-  <action name="switchFullScreen">if(tour_fullscreen,exitFullScreen();,enterFullScreen(););</action>
-
-  
-  <events name="krpanoExitFullscreenEvent"
-    onexitfullscreen="if(tour_fullscreen,exitFullScreenChangeEvent(););"
-    keep="true" />
-
-  <action name="exitFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,false);events.dispatch(onexitfullscreen);</action>
-
-<action name="viewControlZoomIn">
-	if(%1,
-		if(%2,
-			if(%2 LT view.fovmin,
-				zoomto(get(view.fovmin));
-			,
-				if(%2 LT view.fov,
-					zoomto(%2);
-				);
-			);
-		,
-			set(fov_moveforce, -1);
-			delayedcall(0.1, viewControlZoomStop());
-		);
-	,
-		set(fov_moveforce, -1);
-	);
-</action>
-<action name="viewControlZoomOut">
-	if(%1,
-		if(%2,
-			if(%2 GT view.fovmax,
-				zoomto(get(view.fovmax));
-			,
-				if(%2 GT view.fov,
-					zoomto(%2);
-				);
-			);
-		,
-			set(fov_moveforce, +1);
-			delayedcall(0.1, viewControlZoomStop());
-		);
-	,
-		set(fov_moveforce, +1);
-	);
-</action>
-<action name="viewControlZoomStop">
-	set(fov_moveforce, 0);
-</action>
 
 <action name="viewControlMoveUp">
 	if(%1,
@@ -1704,6 +1647,23 @@ if (device.desktop,
 	set(vlookat_moveforce, 0);
 </action>
 
+  <!-- Hide / Show Controls -->
+  <action name="hideTourControls">set(tour_displaycontrols, false);events.dispatch(hidetourcontrols);</action>
+  <action name="showTourControls">set(tour_displaycontrols, true); events.dispatch(showtourcontrols);</action>
+
+
+  <!-- Fullscreen Management -->
+  <action name="exitFullScreen" devices="fullscreensupport">set(tour_fullscreen,false);set(fullscreen,false);</action>
+  <action name="enterFullScreen" devices="fullscreensupport">set(tour_fullscreen,true);set(fullscreen,true);</action>
+  <action name="switchFullScreen">if(tour_fullscreen,exitFullScreen();,enterFullScreen(););</action>
+
+  
+  <events name="krpanoExitFullscreenEvent"
+    onexitfullscreen="if(tour_fullscreen,exitFullScreenChangeEvent(););"
+    keep="true" />
+
+  <action name="exitFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,false);events.dispatch(onexitfullscreen);</action>
+
   <action name="enableGyroscope">
     changeGyroscopeState(true);
   </action>
@@ -1739,6 +1699,46 @@ if (device.desktop,
 		set(tour_vrdevices, false);
 		events.dispatch(onvrunavailable);
 	</action>
+<action name="viewControlZoomIn">
+	if(%1,
+		if(%2,
+			if(%2 LT view.fovmin,
+				zoomto(get(view.fovmin));
+			,
+				if(%2 LT view.fov,
+					zoomto(%2);
+				);
+			);
+		,
+			set(fov_moveforce, -1);
+			delayedcall(0.1, viewControlZoomStop());
+		);
+	,
+		set(fov_moveforce, -1);
+	);
+</action>
+<action name="viewControlZoomOut">
+	if(%1,
+		if(%2,
+			if(%2 GT view.fovmax,
+				zoomto(get(view.fovmax));
+			,
+				if(%2 GT view.fov,
+					zoomto(%2);
+				);
+			);
+		,
+			set(fov_moveforce, +1);
+			delayedcall(0.1, viewControlZoomStop());
+		);
+	,
+		set(fov_moveforce, +1);
+	);
+</action>
+<action name="viewControlZoomStop">
+	set(fov_moveforce, 0);
+</action>
+
   <!-- Sounds Management -->
   <plugin name="soundinterface"
           preload="true"
